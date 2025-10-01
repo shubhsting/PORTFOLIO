@@ -11,7 +11,7 @@ import ContactForm from './components/ContactForm';
 import InteractiveTimeline from './components/InteractiveTimeline';
 import VisitorMap from './components/VisitorMap';
 
-type Section = 'about' | 'experience' | 'projects' | 'skills' | 'education' | 'contact';
+type Section = 'about' | 'timeline' | 'experience' | 'projects' | 'skills' | 'education' | 'contact';
 
 type Theme = {
   name: string;
@@ -396,7 +396,7 @@ export default function Portfolio() {
     if (cmd === 'help') {
       newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       newHistory.push('📚 Available Commands:');
-      newHistory.push('  Navigation: about, experience, projects, skills, education, contact');
+      newHistory.push('  Navigation: about, timeline, experience, projects, skills, education, contact');
       newHistory.push('  Actions: resume, email, phone, linkedin, github');
       newHistory.push('  System: clear, whoami, date, tech, theme');
       newHistory.push('  AI Tools: ai-analyze (🤖 Check job fit with AI)');
@@ -503,7 +503,7 @@ export default function Portfolio() {
         newHistory.push('Usage: theme <name> (e.g., "theme dracula")');
         newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       }
-    } else if (['about', 'experience', 'projects', 'skills', 'education', 'contact'].includes(cmd)) {
+    } else if (['about', 'timeline', 'experience', 'projects', 'skills', 'education', 'contact'].includes(cmd)) {
       setActiveSection(cmd as Section);
       newHistory.push(`✓ Navigating to ${cmd}...`);
     } else if (cmd === 'resume') {
@@ -579,6 +579,7 @@ export default function Portfolio() {
 
   const fileTree = [
     { name: '📄 about.js', section: 'about' as Section },
+    { name: '📅 timeline.tsx', section: 'timeline' as Section },
     { name: '💼 experience.tsx', section: 'experience' as Section },
     { name: '🚀 projects.jsx', section: 'projects' as Section },
     { name: '⚡ skills.ts', section: 'skills' as Section },
@@ -715,6 +716,21 @@ export default function Portfolio() {
           </motion.div>
         );
 
+      case 'timeline':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-8"
+          >
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+              <span>📅</span>
+              Career Timeline
+            </h2>
+            <InteractiveTimeline />
+          </motion.div>
+        );
+
       case 'experience':
         return (
           <motion.div
@@ -722,24 +738,10 @@ export default function Portfolio() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-8"
           >
-            {/* Interactive Timeline */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <span>📅</span>
-                Career Timeline
-              </h2>
-              <InteractiveTimeline />
-            </div>
-            
-            {/* Divider */}
-            <div className="border-t border-gray-700 my-8"></div>
-            
-            {/* Original Experience Cards */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold text-gray-400 mb-4 flex items-center gap-2">
-                <span>💼</span>
-                Detailed Experience
-              </h2>
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+              <span>💼</span>
+              Detailed Experience
+            </h2>
             {[
               {
                 title: 'Software Engineer',
@@ -1036,7 +1038,6 @@ export default function Portfolio() {
                 </div>
               </motion.div>
             ))}
-            </div>
           </motion.div>
         );
 

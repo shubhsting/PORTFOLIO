@@ -1,4 +1,4 @@
-export type Section = 'about' | 'experience' | 'projects' | 'skills' | 'education' | 'contact';
+export type Section = 'about' | 'timeline' | 'experience' | 'projects' | 'skills' | 'education' | 'contact';
 
 export type Theme = {
   name: string;

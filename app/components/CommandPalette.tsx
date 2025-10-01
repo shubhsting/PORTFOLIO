@@ -36,7 +36,8 @@ export default function CommandPalette({
   const commands: Command[] = [
     // Navigation
     { id: 'nav-about', name: 'Go to About', description: 'View about section', icon: '📄', action: () => setActiveSection('about'), category: 'Navigation' },
-    { id: 'nav-experience', name: 'Go to Experience', description: 'View work experience', icon: '💼', action: () => setActiveSection('experience'), category: 'Navigation' },
+    { id: 'nav-timeline', name: 'Go to Timeline', description: 'View career timeline', icon: '📅', action: () => setActiveSection('timeline'), category: 'Navigation' },
+    { id: 'nav-experience', name: 'Go to Experience', description: 'View detailed experience', icon: '💼', action: () => setActiveSection('experience'), category: 'Navigation' },
     { id: 'nav-projects', name: 'Go to Projects', description: 'View projects', icon: '🚀', action: () => setActiveSection('projects'), category: 'Navigation' },
     { id: 'nav-skills', name: 'Go to Skills', description: 'View technical skills', icon: '⚡', action: () => setActiveSection('skills'), category: 'Navigation' },
     { id: 'nav-education', name: 'Go to Education', description: 'View education', icon: '🎓', action: () => setActiveSection('education'), category: 'Navigation' },

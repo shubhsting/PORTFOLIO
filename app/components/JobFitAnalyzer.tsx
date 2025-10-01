@@ -43,8 +43,8 @@ export default function JobFitAnalyzer() {
       // Dynamically import pdfjs-dist only on the client side
       const pdfjsLib = await import('pdfjs-dist');
       
-      // Set worker path
-      pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+      // Set worker path to local file
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
       
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
