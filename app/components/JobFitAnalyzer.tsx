@@ -18,6 +18,8 @@ export default function JobFitAnalyzer() {
   const [jobDescription, setJobDescription] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<FitResult | null>(null);
+  const [isUploadingPDF, setIsUploadingPDF] = useState(false);
+  const [uploadedFileName, setUploadedFileName] = useState('');
   
   // Listen for custom event from terminal
   useEffect(() => {
@@ -25,6 +27,49 @@ export default function JobFitAnalyzer() {
     window.addEventListener('openJobAnalyzer', handleOpenAnalyzer);
     return () => window.removeEventListener('openJobAnalyzer', handleOpenAnalyzer);
   }, []);
+
+  // Handle PDF upload and extract text
+  const handlePDFUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || file.type !== 'application/pdf') {
+      alert('Please upload a valid PDF file');
+      return;
+    }
+
+    setIsUploadingPDF(true);
+    setUploadedFileName(file.name);
+
+    try {
+      // Dynamically import pdfjs-dist only on the client side
+      const pdfjsLib = await import('pdfjs-dist');
+      
+      // Set worker path
+      pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+      
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let fullText = '';
+
+      // Extract text from all pages
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items
+          .map((item: any) => item.str)
+          .join(' ');
+        fullText += pageText + '\n';
+      }
+
+      setJobDescription(fullText.trim());
+    } catch (error) {
+      console.error('Error parsing PDF:', error);
+      alert('Failed to parse PDF. Please try again or paste the text manually.');
+    } finally {
+      setIsUploadingPDF(false);
+      // Clear the file input so the same file can be uploaded again if needed
+      event.target.value = '';
+    }
+  };
 
   // Portfolio data
   const portfolioData = {
@@ -179,7 +224,7 @@ export default function JobFitAnalyzer() {
                     AI Job Fit Analyzer
                   </h2>
                   <p className="text-sm text-gray-400 mt-1">
-                    Paste a job description to see if Divyanshu is a good fit
+                    Upload a PDF or paste job description • Analysis is instant • Files are never stored
                   </p>
                 </div>
                 <button
@@ -200,11 +245,61 @@ export default function JobFitAnalyzer() {
                       <label className="block text-sm font-medium text-gray-300 mb-2">
                         Job Description
                       </label>
+                      
+                      {/* PDF Upload Button */}
+                      <div className="mb-3">
+                        <label className="cursor-pointer">
+                          <input
+                            type="file"
+                            accept="application/pdf"
+                            onChange={handlePDFUpload}
+                            className="hidden"
+                            disabled={isUploadingPDF}
+                          />
+                          <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-lg transition-all w-fit">
+                            {isUploadingPDF ? (
+                              <>
+                                <motion.div
+                                  animate={{ rotate: 360 }}
+                                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                                  className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                                />
+                                <span className="text-sm font-medium">Extracting text from PDF...</span>
+                              </>
+                            ) : (
+                              <>
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                </svg>
+                                <span className="text-sm font-medium">📄 Upload PDF Job Description</span>
+                              </>
+                            )}
+                          </div>
+                        </label>
+                        {uploadedFileName && (
+                          <motion.p 
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-xs text-green-400 mt-2 flex items-center gap-1"
+                          >
+                            <span>✓</span>
+                            <span>Uploaded: {uploadedFileName}</span>
+                          </motion.p>
+                        )}
+                      </div>
+                      
+                      <div className="relative">
+                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#1e1e1e] px-2 text-xs text-gray-500">
+                          OR
+                        </div>
+                        <div className="border-t border-gray-600"></div>
+                      </div>
+                      
                       <textarea
                         value={jobDescription}
                         onChange={(e) => setJobDescription(e.target.value)}
                         placeholder="Paste the full job description here...&#10;&#10;Example:&#10;- Required: React, Node.js, TypeScript&#10;- 2+ years experience&#10;- Bachelor's degree in CS"
-                        className="w-full h-64 bg-[#2d2d30] text-gray-300 border border-gray-600 rounded-lg p-4 focus:border-cyan-500 focus:outline-none resize-none font-mono text-sm"
+                        className="w-full h-48 bg-[#2d2d30] text-gray-300 border border-gray-600 rounded-lg p-4 focus:border-cyan-500 focus:outline-none resize-none font-mono text-sm mt-3"
                       />
                     </div>
                     
@@ -331,10 +426,11 @@ export default function JobFitAnalyzer() {
                         onClick={() => {
                           setResult(null);
                           setJobDescription('');
+                          setUploadedFileName('');
                         }}
                         className="flex-1 bg-gray-700 text-white py-2 rounded-lg hover:bg-gray-600 transition-colors"
                       >
-                        Try Another
+                        📄 Analyze Another Job
                       </button>
                       <button
                         onClick={() => setIsOpen(false)}
