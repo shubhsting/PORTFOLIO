@@ -699,17 +699,17 @@ export default function Portfolio() {
               </motion.button>
 
               <motion.button
-                onClick={() => window.print()}
-                onMouseEnter={() => { setIsHovering(true); setCursorIcon('🖨️'); }}
+                onClick={() => setActiveSection('contact')}
+                onMouseEnter={() => { setIsHovering(true); setCursorIcon('✉️'); }}
                 onMouseLeave={() => { setIsHovering(false); setCursorIcon(''); }}
                 whileHover={{ scale: 1.02, borderColor: 'rgba(6, 182, 212, 0.6)' }}
                 whileTap={{ scale: 0.98 }}
                 className="flex-1 bg-gray-900/50 border-2 border-gray-700 text-gray-300 px-4 py-2.5 rounded-lg font-medium text-sm hover:border-cyan-500 hover:text-cyan-400 hover:bg-gray-900/70 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                Print Portfolio
+                Contact Me
               </motion.button>
             </motion.div>
           </motion.div>
@@ -1771,8 +1771,8 @@ export default function Portfolio() {
               <a href="/Divyanshu_Singh_Resume.pdf" download className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors block">
                 📥 Download Resume
               </a>
-              <button onClick={() => window.print()} className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors">
-                🖨️ Print Portfolio
+              <button onClick={() => { setActiveSection('contact'); setShowMenu(null); }} className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors">
+                ✉️ Contact Me
               </button>
               <div className="border-t border-gray-700"></div>
               <button onClick={() => setShowMenu(null)} className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors">
