@@ -1,0 +1,64 @@
+📧 EMAIL CONTACT FORM SETUP
+===========================
+
+Your contact form is ready to send real emails! Here's how to enable it:
+
+STEP 1: Get a Free Resend API Key
+----------------------------------
+1. Visit: https://resend.com/signup
+2. Sign up with your email (completely free!)
+3. Verify your email
+4. Go to API Keys section
+5. Click "Create API Key"
+6. Copy your API key
+
+STEP 2: Add API Key to Environment
+-----------------------------------
+Open your `.env.local` file and add:
+
+RESEND_API_KEY=re_your_actual_key_here
+
+Your .env.local should now have BOTH keys:
+```
+GEMINI_API_KEY=AIzaSy...
+RESEND_API_KEY=re_...
+```
+
+STEP 3: Configure Your Sending Domain (Optional)
+-------------------------------------------------
+For production:
+1. In Resend dashboard, add your domain
+2. Update the 'from' field in: app/api/send-email/route.ts
+3. Change from: 'Portfolio Contact <onboarding@resend.dev>'
+   To: 'Portfolio Contact <noreply@yourdomain.com>'
+
+STEP 4: Test It!
+----------------
+1. Restart dev server: npm run dev
+2. Go to Contact section
+3. Fill out the form
+4. Submit - you'll receive an email!
+
+HOW IT WORKS:
+-------------
+✅ With API Key: Sends beautiful HTML emails to divyanshusingh.hire@gmail.com
+✅ Without API Key: Logs form data to console (dev mode)
+
+FREE TIER LIMITS:
+-----------------
+Resend Free Plan:
+• 100 emails/day
+• 3,000 emails/month
+• Perfect for portfolio!
+
+For Production (Vercel/Render):
+--------------------------------
+Add RESEND_API_KEY in environment variables section
+Same as GEMINI_API_KEY!
+
+SECURITY:
+---------
+⚠️  .env.local is already in .gitignore
+🔒 Never commit API keys to Git
+✨ Form has spam protection built-in
+

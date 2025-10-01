@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import CopyButton from './components/CopyButton';
+import JobFitAnalyzer from './components/JobFitAnalyzer';
+import AnimatedBackground from './components/AnimatedBackground';
+import CommandPalette from './components/CommandPalette';
+import ContactForm from './components/ContactForm';
 
 type Section = 'about' | 'experience' | 'projects' | 'skills' | 'education' | 'contact';
 
@@ -393,6 +397,7 @@ export default function Portfolio() {
       newHistory.push('  Navigation: about, experience, projects, skills, education, contact');
       newHistory.push('  Actions: resume, email, phone, linkedin, github');
       newHistory.push('  System: clear, whoami, date, tech, theme');
+      newHistory.push('  AI Tools: ai-analyze (🤖 Check job fit with AI)');
       newHistory.push('  Fun: matrix, joke, quote, coffee, ascii, sudo, hack, fortune');
       newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     } else if (cmd === 'matrix') {
@@ -532,6 +537,25 @@ export default function Portfolio() {
       newHistory.push('  Cloud: AWS (EC2, S3, SES, SNS, SQS)');
       newHistory.push('  Databases: MongoDB, PostgreSQL, Redis');
       newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    } else if (cmd === 'ai-analyze' || cmd === 'ai' || cmd === 'jobfit') {
+      newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      newHistory.push('🤖 AI Job Fit Analyzer');
+      newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      newHistory.push('');
+      newHistory.push('Opening AI-powered job matching tool...');
+      newHistory.push('');
+      newHistory.push('📋 Recruiters can paste job descriptions to get:');
+      newHistory.push('  • Match percentage analysis');
+      newHistory.push('  • Skill gap identification');
+      newHistory.push('  • Personalized recommendations');
+      newHistory.push('  • Relevant experience highlights');
+      newHistory.push('');
+      newHistory.push('🚀 Click the purple 🤖 button at the bottom right!');
+      newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      // Trigger the analyzer to open
+      setTimeout(() => {
+        window.dispatchEvent(new Event('openJobAnalyzer'));
+      }, 500);
     } else if (cmd === 'clear') {
       setTerminalHistory(['> Terminal cleared. Type "help" for commands.']);
       setTerminalInput('');
@@ -1546,6 +1570,9 @@ export default function Portfolio() {
                 {'}'}<span className="text-gray-500">;</span>
               </pre>
               </div>
+
+              {/* Contact Form */}
+              <ContactForm />
             </div>
           </motion.div>
         );
@@ -1560,6 +1587,19 @@ export default function Portfolio() {
       className={`min-h-screen text-gray-300 font-[family-name:var(--font-inter)] relative ${isResizing ? 'select-none' : ''}`}
       style={{ backgroundColor: theme.bg }}
     >
+      {/* Animated Background */}
+      <AnimatedBackground theme={theme} />
+      
+      {/* Command Palette */}
+      <CommandPalette
+        isOpen={showCommandPalette}
+        onClose={() => setShowCommandPalette(false)}
+        setActiveSection={setActiveSection}
+        setTerminalCollapsed={setTerminalCollapsed}
+        setSidebarCollapsed={setSidebarCollapsed}
+        setCurrentTheme={setCurrentTheme}
+      />
+      
       {/* Custom Cursor Follower */}
       <motion.div
         className="fixed pointer-events-none z-[9999] hidden lg:block"
@@ -2354,6 +2394,9 @@ export default function Portfolio() {
           </div>
         </div>
       </div>
+      
+      {/* AI Job Fit Analyzer */}
+      <JobFitAnalyzer />
     </div>
   );
 }

@@ -1,0 +1,48 @@
+🤖 AI JOB FIT ANALYZER SETUP
+================================
+
+The AI Job Fit Analyzer is now integrated! Here's how to enable it:
+
+STEP 1: Get a Free Google Gemini API Key
+-----------------------------------------
+1. Visit: https://makersuite.google.com/app/apikey
+2. Sign in with your Google account
+3. Click "Create API Key"
+4. Copy your API key
+
+STEP 2: Add the API Key to Your Project
+----------------------------------------
+1. Create a file named `.env.local` in the PORTFOLIO folder
+2. Add this line to the file:
+   GEMINI_API_KEY=your_actual_api_key_here
+
+3. Replace "your_actual_api_key_here" with your actual key
+
+STEP 3: Restart the Development Server
+---------------------------------------
+1. Stop the dev server (Ctrl+C)
+2. Run: npm run dev
+3. The AI analyzer is now active! 🚀
+
+HOW IT WORKS:
+-------------
+✅ With API Key: Uses real Google Gemini AI for intelligent analysis
+✅ Without API Key: Falls back to smart rule-based matching
+
+The analyzer automatically:
+- Compares job requirements with your skills
+- Calculates match percentage
+- Identifies strengths and gaps
+- Provides personalized recommendations
+- Highlights relevant experience
+
+IMPORTANT: 
+----------
+⚠️  Never commit .env.local to Git (it's already in .gitignore)
+🔒 Keep your API key private
+✨ Gemini API has a generous free tier (60 requests/minute)
+
+For production deployment on Render/Vercel:
+- Add GEMINI_API_KEY in the environment variables section
+- No code changes needed!
+
