@@ -12,7 +12,7 @@ STEP 1: Get a Free Google Gemini API Key
 
 STEP 2: Add the API Key to Your Project
 ----------------------------------------
-1. Create a file named `.env.local` in the PORTFOLIO folder
+1. Create a file named `.env` in the PORTFOLIO folder
 2. Add this line to the file:
    GEMINI_API_KEY=your_actual_api_key_here
 
@@ -38,7 +38,7 @@ The analyzer automatically:
 
 IMPORTANT: 
 ----------
-⚠️  Never commit .env.local to Git (it's already in .gitignore)
+⚠️  Never commit .env to Git (it's already in .gitignore)
 🔒 Keep your API key private
 ✨ Gemini API has a generous free tier (60 requests/minute)
 

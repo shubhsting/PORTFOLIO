@@ -14,11 +14,11 @@ STEP 1: Get a Free Resend API Key
 
 STEP 2: Add API Key to Environment
 -----------------------------------
-Open your `.env.local` file and add:
+Open your `.env` file and add:
 
 RESEND_API_KEY=re_your_actual_key_here
 
-Your .env.local should now have BOTH keys:
+Your .env should now have BOTH keys:
 ```
 GEMINI_API_KEY=AIzaSy...
 RESEND_API_KEY=re_...
@@ -58,7 +58,7 @@ Same as GEMINI_API_KEY!
 
 SECURITY:
 ---------
-⚠️  .env.local is already in .gitignore
+⚠️  .env is already in .gitignore
 🔒 Never commit API keys to Git
 ✨ Form has spam protection built-in
 
