@@ -1542,27 +1542,40 @@ export default function Portfolio() {
         <div className="relative">
           <button 
             onClick={() => {
-              // Switch to terminal tab
-              setTerminalTab('terminal');
-              // Add message to terminal
-              setTerminalHistory(prev => [...prev, '> Terminal activated! Type "help" for commands 💻']);
-              // Scroll terminal into view
-              setTimeout(() => {
-                const terminal = document.querySelector('input[type="text"]') as HTMLInputElement;
-                terminal?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                terminal?.focus();
-              }, 100);
-              setShowMenu(null);
-              // Add a visual indicator with border
-              const terminalDiv = document.querySelector('.h-40') as HTMLElement;
-              if (terminalDiv) {
-                terminalDiv.style.border = '2px solid rgba(6, 182, 212, 0.8)';
-                terminalDiv.style.boxShadow = '0 0 30px rgba(6, 182, 212, 0.6), inset 0 0 20px rgba(6, 182, 212, 0.2)';
+              console.log('Terminal button clicked. Current state:', terminalCollapsed);
+              // Toggle terminal open/closed
+              setTerminalCollapsed(!terminalCollapsed);
+              
+              if (terminalCollapsed) {
+                // Opening terminal
+                console.log('Opening terminal');
+                setTerminalHeight(250);
+                setTerminalTab('terminal');
+                setTerminalHistory(prev => [...prev, '> Terminal activated! Type "help" for commands 💻']);
+                
+                // Wait for React to re-render then focus
                 setTimeout(() => {
-                  terminalDiv.style.border = '';
-                  terminalDiv.style.boxShadow = '';
-                }, 2000);
+                  const terminal = document.querySelector('input[type="text"]') as HTMLInputElement;
+                  terminal?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                  terminal?.focus();
+                  
+                  // Add a visual indicator with border
+                  const terminalDiv = terminal?.closest('.bg-\\[\\#1e1e1e\\]') as HTMLElement;
+                  if (terminalDiv) {
+                    terminalDiv.style.border = '2px solid rgba(6, 182, 212, 0.8)';
+                    terminalDiv.style.boxShadow = '0 0 30px rgba(6, 182, 212, 0.6), inset 0 0 20px rgba(6, 182, 212, 0.2)';
+                    setTimeout(() => {
+                      terminalDiv.style.border = '';
+                      terminalDiv.style.boxShadow = '';
+                    }, 2000);
+                  }
+                }, 300);
+              } else {
+                // Closing terminal
+                console.log('Closing terminal');
               }
+              
+              setShowMenu(null);
             }}
             className="text-gray-400 hover:text-white transition-colors hover:bg-gray-700 px-2 py-1 rounded"
           >
