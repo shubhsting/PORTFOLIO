@@ -40,6 +40,8 @@ export default function Header(props: Props) {
         activeSection={props.activeSection}
         setActiveSection={props.setActiveSection}
         setShowMobileMenu={props.setShowMobileMenu}
+        currentTheme={props.currentTheme}
+        setCurrentTheme={props.setCurrentTheme}
       />
       <MenuBar
         showMenu={props.showMenu}
