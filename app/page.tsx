@@ -3,11 +3,72 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import CopyButton from './components/CopyButton';
 
 type Section = 'about' | 'experience' | 'projects' | 'skills' | 'education' | 'contact';
 
+type Theme = {
+  name: string;
+  bg: string;
+  bgSecondary: string;
+  bgTertiary: string;
+  text: string;
+  textSecondary: string;
+  accent: string;
+  accentSecondary: string;
+  border: string;
+};
+
+const themes: Record<string, Theme> = {
+  vscode: {
+    name: 'VS Code Dark',
+    bg: '#1e1e1e',
+    bgSecondary: '#252526',
+    bgTertiary: '#2d2d30',
+    text: '#ffffff',
+    textSecondary: '#9cdcfe',
+    accent: '#06b6d4',
+    accentSecondary: '#0ea5e9',
+    border: '#3e3e42',
+  },
+  dracula: {
+    name: 'Dracula',
+    bg: '#282a36',
+    bgSecondary: '#21222c',
+    bgTertiary: '#191a21',
+    text: '#f8f8f2',
+    textSecondary: '#ff79c6',
+    accent: '#bd93f9',
+    accentSecondary: '#ff79c6',
+    border: '#6272a4',
+  },
+  monokai: {
+    name: 'Monokai',
+    bg: '#272822',
+    bgSecondary: '#1e1f1c',
+    bgTertiary: '#1e1f1c',
+    text: '#f8f8f2',
+    textSecondary: '#a6e22e',
+    accent: '#e6db74',
+    accentSecondary: '#f92672',
+    border: '#49483e',
+  },
+  nord: {
+    name: 'Nord',
+    bg: '#2e3440',
+    bgSecondary: '#3b4252',
+    bgTertiary: '#434c5e',
+    text: '#eceff4',
+    textSecondary: '#88c0d0',
+    accent: '#81a1c1',
+    accentSecondary: '#5e81ac',
+    border: '#4c566a',
+  },
+};
+
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState<Section>('about');
+  const [currentTheme, setCurrentTheme] = useState<string>('vscode');
   const [terminalInput, setTerminalInput] = useState('');
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
     '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
@@ -34,6 +95,9 @@ export default function Portfolio() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [showCommandPalette, setShowCommandPalette] = useState(false);
+  const [commandInput, setCommandInput] = useState('');
+  const [visitorCount, setVisitorCount] = useState(0);
 
   // Function to calculate duration between two dates
   const calculateDuration = (startDate: string, endDate: string | null): string => {
@@ -193,8 +257,28 @@ export default function Portfolio() {
     setCurrentTime(new Date());
     setLineCount(Math.floor(Math.random() * 500) + 200);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    
+    // Load theme from localStorage
+    const savedTheme = localStorage.getItem('portfolioTheme');
+    if (savedTheme && themes[savedTheme]) {
+      setCurrentTheme(savedTheme);
+    }
+    
+    // Visitor counter
+    const visits = parseInt(localStorage.getItem('portfolioVisits') || '0');
+    const newVisits = visits + 1;
+    localStorage.setItem('portfolioVisits', newVisits.toString());
+    setVisitorCount(newVisits);
+    
     return () => clearInterval(timer);
   }, []);
+  
+  // Save theme to localStorage when it changes
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem('portfolioTheme', currentTheme);
+    }
+  }, [currentTheme, mounted]);
 
   useEffect(() => {
     const handleClickOutside = () => {
@@ -207,6 +291,17 @@ export default function Portfolio() {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Command Palette (Ctrl+K / Cmd+K)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setShowCommandPalette(prev => !prev);
+        setCommandInput('');
+      }
+      // Close command palette on Escape
+      if (e.key === 'Escape' && showCommandPalette) {
+        setShowCommandPalette(false);
+        setCommandInput('');
+      }
       // Toggle sidebar (Ctrl+B / Cmd+B)
       if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
         e.preventDefault();
@@ -220,10 +315,16 @@ export default function Portfolio() {
           setTerminalHeight(250);
         }
       }
+      // Focus search (/)
+      if (e.key === '/' && !showCommandPalette && document.activeElement?.tagName !== 'INPUT') {
+        e.preventDefault();
+        const searchInput = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement;
+        searchInput?.focus();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [terminalCollapsed]);
+  }, [terminalCollapsed, showCommandPalette]);
 
   const handleDownloadResume = () => {
     // Open in new tab so user can view it
@@ -291,8 +392,110 @@ export default function Portfolio() {
       newHistory.push('📚 Available Commands:');
       newHistory.push('  Navigation: about, experience, projects, skills, education, contact');
       newHistory.push('  Actions: resume, email, phone, linkedin, github');
-      newHistory.push('  System: clear, whoami, date, tech');
+      newHistory.push('  System: clear, whoami, date, tech, theme');
+      newHistory.push('  Fun: matrix, joke, quote, coffee, ascii, sudo, hack, fortune');
       newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    } else if (cmd === 'matrix') {
+      newHistory.push('');
+      newHistory.push('🟢 ░█▄░▄█ ░█▀█ ░▀█▀ ░█▀▀█ ░▀█▀ ░█░█');
+      newHistory.push('🟢 ░█░█░█ ░█▀█ ░░█░ ░█▄▄▀ ░░█░ ░▄▄▄');
+      newHistory.push('🟢 ░█░░░█ ░█░█ ░░█░ ░█░░█ ░▄█▄ ░█░█');
+      newHistory.push('');
+      newHistory.push('🟢 The Matrix has you... Follow the white rabbit 🐰');
+      newHistory.push('🟢 Wake up, Neo...');
+    } else if (cmd === 'joke') {
+      const jokes = [
+        'Why do programmers prefer dark mode? Because light attracts bugs! 🐛',
+        'How many programmers does it take to change a light bulb? None, that\'s a hardware problem! 💡',
+        'Why do Java developers wear glasses? Because they don\'t C#! 👓',
+        'A SQL query walks into a bar, walks up to two tables and asks... "Can I JOIN you?" 🍻',
+        'Why did the programmer quit his job? Because he didn\'t get arrays! 💸',
+        'What\'s a programmer\'s favorite hangout place? Foo Bar! 🍺',
+        'Why do programmers always mix up Halloween and Christmas? Because Oct 31 == Dec 25! 🎃🎄',
+        'There are only 10 types of people: those who understand binary and those who don\'t. 😄',
+      ];
+      newHistory.push('😂 ' + jokes[Math.floor(Math.random() * jokes.length)]);
+    } else if (cmd === 'quote') {
+      const quotes = [
+        '"Code is like humor. When you have to explain it, it\'s bad." – Cory House',
+        '"First, solve the problem. Then, write the code." – John Johnson',
+        '"Experience is the name everyone gives to their mistakes." – Oscar Wilde',
+        '"Any fool can write code that a computer can understand. Good programmers write code that humans can understand." – Martin Fowler',
+        '"The best error message is the one that never shows up." – Thomas Fuchs',
+        '"Simplicity is the soul of efficiency." – Austin Freeman',
+        '"Make it work, make it right, make it fast." – Kent Beck',
+        '"Talk is cheap. Show me the code." – Linus Torvalds',
+      ];
+      newHistory.push('✨ ' + quotes[Math.floor(Math.random() * quotes.length)]);
+    } else if (cmd === 'coffee') {
+      newHistory.push('');
+      newHistory.push('      ☕');
+      newHistory.push('     (  )');
+      newHistory.push('  ╔═══════╗');
+      newHistory.push('  ║ COFFEE║');
+      newHistory.push('  ╚═══════╝');
+      newHistory.push('');
+      newHistory.push('☕ Brewing code fuel... Ah, much better!');
+    } else if (cmd === 'ascii') {
+      newHistory.push('');
+      newHistory.push('  ____  _                            _           ');
+      newHistory.push(' |  _ \\(_)_   ___   _  __ _ _ __  ___| |__  _   _ ');
+      newHistory.push(' | | | | \\ \\ / / | | |/ _` | \'_ \\/ __| \'_ \\| | | |');
+      newHistory.push(' | |_| | |\\ V /| |_| | (_| | | | \\__ \\ | | | |_| |');
+      newHistory.push(' |____/|_| \\_/  \\__, |\\__,_|_| |_|___/_| |_|\\__,_|');
+      newHistory.push('                |___/                              ');
+      newHistory.push('');
+    } else if (cmd === 'sudo') {
+      if (args[1] === 'rm' && args[2] === '-rf' && args[3] === '/') {
+        newHistory.push('');
+        newHistory.push('🚨 PERMISSION DENIED! 🚨');
+        newHistory.push('Nice try! 😏 But I\'m not falling for that one!');
+        newHistory.push('This portfolio is sudo-proof! 🛡️');
+      } else {
+        newHistory.push('🔐 [sudo] password for visitor:');
+        newHistory.push('Sorry, you don\'t have sudo privileges here! 😅');
+      }
+    } else if (cmd === 'hack') {
+      newHistory.push('');
+      newHistory.push('🔴 Initiating hack sequence...');
+      newHistory.push('🟠 Bypassing firewall... [████████░░] 80%');
+      newHistory.push('🟡 Accessing mainframe... [██████████] 100%');
+      newHistory.push('🟢 HACK SUCCESSFUL! Just kidding! 😎');
+      newHistory.push('');
+      newHistory.push('Real hacking takes years of practice. Keep learning! 📚');
+    } else if (cmd === 'fortune') {
+      const fortunes = [
+        '🔮 You will write bug-free code today. (Results may vary)',
+        '🔮 A semicolon you forgot will appear when you need it most.',
+        '🔮 Your pull request will be approved on the first try!',
+        '🔮 Stack Overflow will have the exact answer you need.',
+        '🔮 No merge conflicts in your future!',
+        '🔮 Your code will compile on the first attempt.',
+        '🔮 A recruiter with your dream job will contact you soon!',
+      ];
+      newHistory.push(fortunes[Math.floor(Math.random() * fortunes.length)]);
+    } else if (cmd === 'theme') {
+      if (args[1]) {
+        const themeName = args[1].toLowerCase();
+        if (themes[themeName]) {
+          setCurrentTheme(themeName);
+          newHistory.push(`✓ Theme changed to ${themes[themeName].name}! 🎨`);
+        } else {
+          newHistory.push(`❌ Theme "${args[1]}" not found.`);
+          newHistory.push('Available themes: vscode, dracula, monokai, nord');
+        }
+      } else {
+        newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        newHistory.push('🎨 Available Themes:');
+        newHistory.push('  • vscode   - VS Code Dark (default)');
+        newHistory.push('  • dracula  - Dracula Theme');
+        newHistory.push('  • monokai  - Monokai Pro');
+        newHistory.push('  • nord     - Nord Theme');
+        newHistory.push('');
+        newHistory.push(`Current theme: ${themes[currentTheme].name}`);
+        newHistory.push('Usage: theme <name> (e.g., "theme dracula")');
+        newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      }
     } else if (['about', 'experience', 'projects', 'skills', 'education', 'contact'].includes(cmd)) {
       setActiveSection(cmd as Section);
       newHistory.push(`✓ Navigating to ${cmd}...`);
@@ -344,6 +547,9 @@ export default function Portfolio() {
     setTerminalHistory(newHistory);
     setTerminalInput('');
   };
+
+  // Get current theme colors
+  const theme = themes[currentTheme];
 
   const fileTree = [
     { name: '📄 about.js', section: 'about' as Section },
@@ -414,30 +620,32 @@ export default function Portfolio() {
             </div>
 
             <div className="bg-gray-950/50 border border-gray-700 rounded-lg p-4 sm:p-6 font-mono mb-6">
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {[
-                  { cmd: 'call', icon: '📞', value: '+91 7906726655', href: 'tel:+917906726655' },
-                  { cmd: 'email', icon: '✉️', value: 'divyanshusingh.hire@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=divyanshusingh.hire@gmail.com' },
-                  { cmd: 'linkedin', icon: '💼', value: 'View Profile', href: 'https://www.linkedin.com/in/divyanshu-singh-624700221' },
-                  { cmd: 'github', icon: '💻', value: 'View Repositories', href: 'https://github.com/divyanshu2003singh' },
+                  { cmd: 'call', icon: '📞', value: '+91 7906726655', href: 'tel:+917906726655', copyValue: '+91 7906726655' },
+                  { cmd: 'email', icon: '✉️', value: 'divyanshusingh.hire@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=divyanshusingh.hire@gmail.com', copyValue: 'divyanshusingh.hire@gmail.com' },
+                  { cmd: 'linkedin', icon: '💼', value: 'View Profile', href: 'https://www.linkedin.com/in/divyanshu-singh-624700221', copyValue: 'https://www.linkedin.com/in/divyanshu-singh-624700221' },
+                  { cmd: 'github', icon: '💻', value: 'View Repositories', href: 'https://github.com/divyanshu2003singh', copyValue: 'https://github.com/divyanshu2003singh' },
                 ].map((item, i) => (
-                  <motion.a
-                    key={i}
-                    href={item.href}
-                    target={item.href.startsWith('http') ? '_blank' : undefined}
-                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    onMouseEnter={() => { setIsHovering(true); setCursorIcon(item.icon); }}
-                    onMouseLeave={() => { setIsHovering(false); setCursorIcon(''); }}
-                    whileHover={{ x: 3 }}
-                    className="flex items-center gap-3 hover:bg-gray-900/50 p-2 rounded transition-all group"
-                  >
-                    <span className="text-green-400 text-sm">$</span>
-                    <span className="text-purple-400 text-sm">./{item.cmd}</span>
-                    <span className="text-gray-600 text-sm">{'-->'}</span>
-                    <span className="text-xl">{item.icon}</span>
-                    <span className="text-gray-400 text-sm flex-1 truncate group-hover:text-cyan-400 transition-colors">{item.value}</span>
-                    <span className="text-gray-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
-                  </motion.a>
+                  <div key={i} className="flex items-center gap-1.5">
+                    <motion.a
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      onMouseEnter={() => { setIsHovering(true); setCursorIcon(item.icon); }}
+                      onMouseLeave={() => { setIsHovering(false); setCursorIcon(''); }}
+                      whileHover={{ x: 2 }}
+                      className="flex items-center gap-2 sm:gap-3 hover:bg-gray-900/50 p-2 rounded transition-all group flex-1 min-w-0"
+                    >
+                      <span className="text-green-400 text-xs sm:text-sm flex-shrink-0">$</span>
+                      <span className="text-purple-400 text-xs sm:text-sm flex-shrink-0">./{item.cmd}</span>
+                      <span className="text-gray-600 text-xs sm:text-sm flex-shrink-0">{'-->'}</span>
+                      <span className="text-lg sm:text-xl flex-shrink-0">{item.icon}</span>
+                      <span className="text-gray-400 text-xs sm:text-sm flex-1 truncate group-hover:text-cyan-400 transition-colors">{item.value}</span>
+                      <span className="text-gray-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">↗</span>
+                    </motion.a>
+                    <CopyButton text={item.copyValue} label={item.cmd} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -1286,33 +1494,37 @@ export default function Portfolio() {
                 <div className="text-xs text-gray-500 uppercase tracking-wider mb-3">⚡ Quick Actions</div>
                 <div className="space-y-2">
                   {[
-                    { cmd: 'npm run email', icon: '✉️', label: 'Send Email', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=divyanshusingh.hire@gmail.com&su=Hello%20Divyanshu&body=Hi%20Divyanshu,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards' },
-                    { cmd: 'npm run call', icon: '📞', label: '+91 7906726655', href: 'tel:+917906726655' },
-                    { cmd: 'npm run linkedin', icon: '💼', label: 'Connect on LinkedIn', href: 'https://www.linkedin.com/in/divyanshu-singh-624700221' },
-                    { cmd: 'npm run github', icon: '💻', label: 'View GitHub Profile', href: 'https://github.com/divyanshu2003singh' },
+                    { cmd: 'npm run email', icon: '✉️', label: 'divyanshusingh.hire@gmail.com', displayLabel: 'Send Email', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=divyanshusingh.hire@gmail.com&su=Hello%20Divyanshu&body=Hi%20Divyanshu,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards', copyValue: 'divyanshusingh.hire@gmail.com' },
+                    { cmd: 'npm run call', icon: '📞', label: '+91 7906726655', displayLabel: '+91 7906726655', href: 'tel:+917906726655', copyValue: '+91 7906726655' },
+                    { cmd: 'npm run linkedin', icon: '💼', label: 'LinkedIn Profile', displayLabel: 'Connect on LinkedIn', href: 'https://www.linkedin.com/in/divyanshu-singh-624700221', copyValue: 'https://www.linkedin.com/in/divyanshu-singh-624700221' },
+                    { cmd: 'npm run github', icon: '💻', label: 'GitHub Profile', displayLabel: 'View GitHub Profile', href: 'https://github.com/divyanshu2003singh', copyValue: 'https://github.com/divyanshu2003singh' },
                   ].map((item, i) => (
-                    <motion.a
-                      key={i}
-                      href={item.href}
-                      target={item.href.startsWith('http') ? '_blank' : undefined}
-                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      onMouseEnter={() => { setIsHovering(true); setCursorIcon(item.icon); }}
-                      onMouseLeave={() => { setIsHovering(false); setCursorIcon(''); }}
-                      whileHover={{ x: 5, backgroundColor: 'rgba(6, 182, 212, 0.1)' }}
-                      className="flex items-center gap-3 p-3 rounded hover:border-l-2 hover:border-cyan-400 transition-all group"
-                    >
-                      <span className="text-xl">{item.icon}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-xs text-gray-500">{item.cmd}</div>
-                        <div className="text-sm text-cyan-400 group-hover:text-cyan-300 truncate">{item.label}</div>
+                    <div key={i} className="flex items-stretch gap-1.5">
+                      <motion.a
+                        href={item.href}
+                        target={item.href.startsWith('http') ? '_blank' : undefined}
+                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        onMouseEnter={() => { setIsHovering(true); setCursorIcon(item.icon); }}
+                        onMouseLeave={() => { setIsHovering(false); setCursorIcon(''); }}
+                        whileHover={{ x: 3, backgroundColor: 'rgba(6, 182, 212, 0.1)' }}
+                        className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded hover:border-l-2 hover:border-cyan-400 transition-all group flex-1 min-w-0"
+                      >
+                        <span className="text-lg sm:text-xl flex-shrink-0">{item.icon}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs text-gray-500 truncate">{item.cmd}</div>
+                          <div className="text-xs sm:text-sm text-cyan-400 group-hover:text-cyan-300 truncate">{item.displayLabel}</div>
+                        </div>
+                        <div className="hidden sm:flex items-center gap-1 text-xs text-gray-600 group-hover:text-cyan-400 flex-shrink-0">
+                          <span>RUN</span>
+                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                          </svg>
+                        </div>
+                      </motion.a>
+                      <div className="flex items-center">
+                        <CopyButton text={item.copyValue} label={item.label} />
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-gray-600 group-hover:text-cyan-400">
-                        <span>RUN</span>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z"/>
-                        </svg>
-                      </div>
-                    </motion.a>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -1344,7 +1556,10 @@ export default function Portfolio() {
   };
 
   return (
-    <div className={`min-h-screen bg-[#1e1e1e] text-gray-300 font-[family-name:var(--font-inter)] relative ${isResizing ? 'select-none' : ''}`}>
+    <div 
+      className={`min-h-screen text-gray-300 font-[family-name:var(--font-inter)] relative ${isResizing ? 'select-none' : ''}`}
+      style={{ backgroundColor: theme.bg }}
+    >
       {/* Custom Cursor Follower */}
       <motion.div
         className="fixed pointer-events-none z-[9999] hidden lg:block"
@@ -1613,6 +1828,49 @@ export default function Portfolio() {
             </motion.div>
           )}
         </div>
+        
+        {/* Theme Selector */}
+        <div className="relative ml-auto">
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowMenu(showMenu === 'theme' ? null : 'theme');
+            }}
+            className="text-gray-400 hover:text-white transition-colors hover:bg-gray-700 px-2 py-1 rounded flex items-center gap-1"
+          >
+            🎨 <span className="hidden sm:inline">Theme</span>
+          </button>
+          {showMenu === 'theme' && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="absolute top-full right-0 mt-1 bg-[#252526] border border-gray-700 rounded shadow-2xl min-w-[200px] z-50"
+            >
+              {Object.entries(themes).map(([key, theme]) => (
+                <button
+                  key={key}
+                  onClick={() => {
+                    setCurrentTheme(key);
+                    setShowMenu(null);
+                    setTerminalHistory(prev => [...prev, `✓ Theme changed to ${theme.name}! 🎨`]);
+                  }}
+                  className={`w-full text-left px-4 py-2 transition-colors flex items-center gap-2 ${
+                    currentTheme === key 
+                      ? 'bg-[#37373d] text-white' 
+                      : 'text-gray-300 hover:bg-[#2d2d30] hover:text-white'
+                  }`}
+                >
+                  <div 
+                    className="w-4 h-4 rounded border border-gray-600" 
+                    style={{ backgroundColor: theme.accent }}
+                  ></div>
+                  {theme.name}
+                  {currentTheme === key && <span className="ml-auto">✓</span>}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </div>
       </div>
 
       <div className="flex h-[calc(100vh-88px)] sm:h-[calc(100vh-88px)]">
@@ -1789,6 +2047,13 @@ export default function Portfolio() {
               <span className="text-gray-500">Connected</span>
             </div>
             <div className="text-gray-600 font-mono">Lines: {mounted ? lineCount : 0}</div>
+            <div className="flex items-center gap-2 text-cyan-400">
+              <span>👁️</span>
+              <span className="font-mono">{visitorCount} {visitorCount === 1 ? 'visit' : 'visits'}</span>
+            </div>
+            <div className="text-gray-600 text-[10px]">
+              Theme: {themes[currentTheme].name}
+            </div>
           </div>
             </>
           )}
@@ -1818,10 +2083,10 @@ export default function Portfolio() {
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* Tab bar */}
-          <div className="bg-[#2d2d30] border-b border-gray-800 flex items-center px-2">
-            <div className="flex items-center gap-2 px-4 py-2 bg-[#1e1e1e] border-r border-gray-800 text-sm">
+          <div className="border-b flex items-center px-2" style={{ backgroundColor: theme.bgTertiary, borderColor: theme.border }}>
+            <div className="flex items-center gap-2 px-4 py-2 border-r text-sm" style={{ backgroundColor: theme.bg, borderColor: theme.border }}>
               <span>📄</span>
-              <span>{fileTree.find(f => f.section === activeSection)?.name}</span>
+              <span style={{ color: theme.text }}>{fileTree.find(f => f.section === activeSection)?.name}</span>
             </div>
           </div>
 
