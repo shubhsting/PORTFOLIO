@@ -1938,6 +1938,15 @@ export default function Portfolio() {
                       placeholder="Try: help, whoami, resume, tech..."
                       autoFocus
                     />
+                    <button
+                      type="submit"
+                      className="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 px-3 py-1 rounded border border-cyan-500/30 hover:border-cyan-500 transition-all flex items-center gap-1 text-sm font-semibold"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="hidden sm:inline">Send</span>
+                    </button>
                   </form>
                   <div className="mt-2 text-xs text-gray-600">
                     💡 Quick commands: <span className="text-cyan-400">help</span> | <span className="text-cyan-400">whoami</span> | <span className="text-cyan-400">resume</span> | <span className="text-cyan-400">email</span> | <span className="text-cyan-400">clear</span>
