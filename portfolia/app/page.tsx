@@ -407,7 +407,7 @@ export default function Portfolio() {
                 {'    '}<span className="text-green-400">email</span>: <span className="text-orange-400">"divyanshusingh.hire@gmail.com"</span>,{'\n'}
                 {'    '}<span className="text-green-400">phone</span>: <span className="text-orange-400">"+91 7906726655"</span>,{'\n'}
                 {'    '}<span className="text-green-400">passion</span>: <span className="text-orange-400">"Building scalable architectures"</span>,{'\n'}
-                {'    '}<span className="text-green-400">expertise</span>: [<span className="text-orange-400">"Backend"</span>, <span className="text-orange-400">"Node.js"</span>, <span className="text-orange-400">"AWS"</span>],{'\n'}
+                {'    '}<span className="text-green-400">expertise</span>: [<span className="text-orange-400">"Backend"</span>, <span className="text-orange-400">"Frontend"</span>, <span className="text-orange-400">"Node.js"</span>, <span className="text-orange-400">"AWS"</span>],{'\n'}
                 {'  '}{'}'}{'\n'}
                 {'}'}
               </pre>
@@ -538,6 +538,23 @@ export default function Portfolio() {
                   'Increased email engagement by 40% with automation',
                   'Reduced manual effort by 80%, saving 15 hours/week',
                   'Achieved 50% lower costs, 30% performance boost',
+                ],
+              },
+              {
+                title: 'Frontend Developer',
+                company: 'Freelance Projects',
+                companyUrl: 'https://github.com/divyanshu2003singh',
+                logo: '/profile.jpg',
+                startDate: '2023-01-01',
+                endDate: '2023-10-01',
+                period: 'Jan 2023 - Oct 2023',
+                location: 'Remote',
+                workflow: 'ui-ux-development.yml',
+                status: 'success',
+                achievements: [
+                  'Built responsive web applications using React and Next.js',
+                  'Implemented modern UI/UX with Tailwind CSS and Framer Motion',
+                  'Delivered 10+ client projects with 100% satisfaction rate',
                 ],
               },
             ].map((job, index) => (
