@@ -85,7 +85,7 @@ export default function JobFitAnalyzer() {
         company: 'The Algorithm',
         duration: '6+ months',
         achievements: [
-          'Pioneered scalable backend architectures',
+          'Pioneered scalable backend architectures for enterprise clients',
           'Decreased error rate by 15%',
           'Reduced release time by 50% with CI/CD'
         ]

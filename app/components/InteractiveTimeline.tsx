@@ -58,7 +58,7 @@ export default function InteractiveTimeline() {
       workflow: 'build-and-deploy.yml',
       status: 'success',
       achievements: [
-        'Pioneered scalable backend architectures for Quantafi, ProAssurance, and SSEC',
+        'Pioneered scalable backend architectures for enterprise FinTech and InsurTech clients',
         'Decreased error rate by 15% with resilient data models',
         'Reduced release time by 50% with CI/CD automation',
       ],
