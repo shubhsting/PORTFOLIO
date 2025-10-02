@@ -151,7 +151,7 @@ export default function ContactForm() {
             required
             rows={6}
             className="w-full bg-[#2d2d30] text-gray-300 border border-gray-600 rounded px-4 py-2 focus:border-cyan-500 focus:outline-none resize-none"
-            placeholder='"Hi Divyanshu, I would like to..."'
+            placeholder='"Hi Shubham, I would like to..."'
           />
         </div>
 
@@ -184,7 +184,7 @@ export default function ContactForm() {
 
         <div className="text-xs text-gray-500 text-center">
           <span className="text-cyan-400">// </span>
-          Messages are sent directly to divyanshusingh.hire@gmail.com
+          Messages are sent directly to shubhamsingh1840@gmail.com
         </div>
       </div>
     </motion.form>

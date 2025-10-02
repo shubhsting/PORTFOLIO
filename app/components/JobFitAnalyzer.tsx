@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { portfolioDataForAI } from '../config/portfolioData';
 
 type FitResult = {
   overallMatch: number;
@@ -71,64 +72,8 @@ export default function JobFitAnalyzer() {
     }
   };
 
-  // Portfolio data
-  const portfolioData = {
-    skills: [
-      'Java', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'Express.js',
-      'MongoDB', 'PostgreSQL', 'Redis', 'AWS', 'EC2', 'S3', 'SES', 'SNS', 'SQS',
-      'Next.js', 'Tailwind CSS', 'Framer Motion', 'REST APIs', 'Microservices',
-      'Git', 'CI/CD', 'Docker', 'Algorithms', 'Data Structures'
-    ],
-    experience: [
-      {
-        title: 'Software Engineer',
-        company: 'The Algorithm',
-        duration: '6+ months',
-        achievements: [
-          'Pioneered scalable backend architectures for enterprise clients',
-          'Decreased error rate by 15%',
-          'Reduced release time by 50% with CI/CD'
-        ]
-      },
-      {
-        title: 'Software Developer Engineer (Intern)',
-        company: 'MathonGo',
-        duration: '7 months',
-        achievements: [
-          'Reduced query times by 40%',
-          'Boosted retrieval speed by 30%',
-          'Improved system resilience by 50%'
-        ]
-      },
-      {
-        title: 'Software Developer Engineer (Intern)',
-        company: 'ARENESS',
-        duration: '4 months',
-        achievements: [
-          'Increased email engagement by 40%',
-          'Reduced manual effort by 80%',
-          'Achieved 50% lower costs'
-        ]
-      }
-    ],
-    education: {
-      degree: 'B.Tech Computer Science',
-      cgpa: 8.1,
-      university: 'MAHARSHI DAYANAND UNIVERSITY'
-    },
-    projects: [
-      {
-        name: 'Trip-Tide',
-        tech: ['MongoDB', 'Express', 'React', 'Node.js'],
-        description: 'Full-stack ride-sharing application'
-      },
-      {
-        name: 'SUDOKU-SOLVER',
-        tech: ['Java', 'Algorithms', 'DSA'],
-        description: 'Java-based puzzle solver'
-      }
-    ]
-  };
+  // Import portfolio data from config
+  const portfolioData = portfolioDataForAI;
 
   const analyzeJobFit = async () => {
     setIsAnalyzing(true);

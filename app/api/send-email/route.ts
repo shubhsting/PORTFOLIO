@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     const data = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>', // Resend's test email
-      to: 'divyanshusingh.hire@gmail.com',
+      to: 'shubhamsingh1840@gmail.com',
       replyTo: email,
       subject: `Portfolio Contact: ${subject}`,
       html: `
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
           </div>
           
           <div style="text-align: center; padding: 20px; color: #6b7280; font-size: 12px;">
-            <p style="margin: 0;">Sent from divyanshusingh's portfolio</p>
+            <p style="margin: 0;">Sent from shubhamsingh's portfolio</p>
           </div>
         </div>
       `,

@@ -41,7 +41,7 @@ STEP 4: Test It!
 
 HOW IT WORKS:
 -------------
-✅ With API Key: Sends beautiful HTML emails to divyanshusingh.hire@gmail.com
+✅ With API Key: Sends beautiful HTML emails to shubhamsingh1840@gmail.com
 ✅ Without API Key: Logs form data to console (dev mode)
 
 FREE TIER LIMITS:

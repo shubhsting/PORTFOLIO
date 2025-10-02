@@ -60,7 +60,7 @@ export default function MenuBar({
             <button onClick={handleViewResume} className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors">
               👁️ View Resume
             </button>
-            <a href="/Divyanshu_Singh_Resume.pdf" download className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors block">
+            <a href="/Shubham_Singh_Resume.pdf" download className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors block">
               📥 Download Resume
             </a>
             <button onClick={() => window.print()} className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors">

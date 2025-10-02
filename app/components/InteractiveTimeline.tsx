@@ -3,22 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Image from 'next/image';
-
-type TimelineItem = {
-  id: string;
-  type: 'work' | 'education';
-  title: string;
-  organization: string;
-  organizationUrl: string;
-  logo: string;
-  startDate: string;
-  endDate: string | null;
-  period: string;
-  location: string;
-  workflow: string;
-  status: string;
-  achievements: string[];
-};
+import { experienceData, educationTimelineItem, type ExperienceItem } from '../config/portfolioData';
 
 export default function InteractiveTimeline() {
   const [filter, setFilter] = useState<'all' | 'work' | 'education'>('all');
@@ -43,103 +28,8 @@ export default function InteractiveTimeline() {
     return `${months} month${months > 1 ? 's' : ''}`;
   };
 
-  const timelineData: TimelineItem[] = [
-    {
-      id: '1',
-      type: 'work',
-      title: 'Software Engineer',
-      organization: 'The Algorithm',
-      organizationUrl: 'https://www.linkedin.com/company/the-algorithm/',
-      logo: '/the_algorithm_logo.jpeg',
-      startDate: '2025-01-01',
-      endDate: null,
-      period: 'Jan 2025 - Present',
-      location: 'New Delhi, India',
-      workflow: 'build-and-deploy.yml',
-      status: 'success',
-      achievements: [
-        'Pioneered scalable backend architectures for enterprise FinTech and InsurTech clients',
-        'Decreased error rate by 15% with resilient data models',
-        'Reduced release time by 50% with CI/CD automation',
-      ],
-    },
-    {
-      id: '2',
-      type: 'education',
-      title: 'B.Tech Computer Science',
-      organization: 'MAHARSHI DAYANAND UNIVERSITY',
-      organizationUrl: '#',
-      logo: '/profile.jpg',
-      startDate: '2020-08-01',
-      endDate: '2024-08-01',
-      period: 'Aug 2020 - Aug 2024',
-      location: 'New Delhi, India',
-      workflow: 'education-journey.yml',
-      status: 'success',
-      achievements: [
-        'CGPA: 8.1/10',
-        'Major: Computer Science',
-        'Focus: Algorithms, Data Structures, Web Development'
-      ],
-    },
-    {
-      id: '3',
-      type: 'work',
-      title: 'Software Developer Engineer (Intern)',
-      organization: 'MathonGo',
-      organizationUrl: 'https://www.linkedin.com/company/mathongo/',
-      logo: '/mathongo_logo.jpeg',
-      startDate: '2024-06-01',
-      endDate: '2024-12-31',
-      period: 'June 2024 - Dec 2024',
-      location: 'Bangalore, India',
-      workflow: 'optimize-and-scale.yml',
-      status: 'success',
-      achievements: [
-        'Reduced query times by 40% for millions of users',
-        'Boosted retrieval speed by 30%, achieved 98% test coverage',
-        'Improved system resilience by 50% with AWS monitoring',
-      ],
-    },
-    {
-      id: '4',
-      type: 'work',
-      title: 'Software Developer Engineer (Intern)',
-      organization: 'ARENESS',
-      organizationUrl: 'https://www.linkedin.com/company/areness/mycompany/',
-      logo: '/areness_logo.jpeg',
-      startDate: '2023-11-01',
-      endDate: '2024-02-01',
-      period: 'Nov 2023 - Feb 2024',
-      location: 'Gurugram, Haryana',
-      workflow: 'automate-and-improve.yml',
-      status: 'success',
-      achievements: [
-        'Increased email engagement by 40% with automation',
-        'Reduced manual effort by 80%, saving 15 hours/week',
-        'Achieved 50% lower costs, 30% performance boost',
-      ],
-    },
-    {
-      id: '5',
-      type: 'work',
-      title: 'Frontend Developer',
-      organization: 'Freelance Projects',
-      organizationUrl: 'https://github.com/divyanshu2003singh',
-      logo: '/profile.jpg',
-      startDate: '2023-01-01',
-      endDate: '2023-10-01',
-      period: 'Jan 2023 - Oct 2023',
-      location: 'Remote',
-      workflow: 'ui-ux-development.yml',
-      status: 'success',
-      achievements: [
-        'Built responsive web applications using React and Next.js',
-        'Implemented modern UI/UX with Tailwind CSS and Framer Motion',
-        'Delivered 10+ client projects with 100% satisfaction rate',
-      ],
-    },
-  ];
+  // Combine experience and education data
+  const timelineData: ExperienceItem[] = [...experienceData, educationTimelineItem];
 
   const filteredData = filter === 'all' 
     ? timelineData 

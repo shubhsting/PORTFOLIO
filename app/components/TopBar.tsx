@@ -17,7 +17,7 @@ export default function TopBar({ currentTime, mounted, showMobileMenu, setShowMo
           <div className="w-3 h-3 rounded-full bg-green-500"></div>
         </div>
         <span className="text-sm text-gray-400 font-[family-name:var(--font-space)] hidden sm:block flex items-center gap-2">
-          <span className="text-cyan-400">divyanshu-portfolio</span>
+          <span className="text-cyan-400">shubham-portfolio</span>
           <span className="text-gray-600">—</span>
           <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold">
             DevForge Studio ⚡

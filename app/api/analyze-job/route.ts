@@ -50,7 +50,7 @@ Provide a detailed analysis in the following JSON format (respond ONLY with vali
   "matchingSkills": ["skill1", "skill2", ...],
   "missingSkills": ["skill1", "skill2", ...],
   "relevantExperience": ["experience1", "experience2", ...],
-  "recommendation": "<one sentence recommendation>",
+  "recommendation": "<one sentence recommendation. also add the required experience and if shubham have that much experience(including internship) or not.>",
   "strengths": ["strength1", "strength2", ...],
   "suggestions": ["suggestion1", "suggestion2", ...]
 }`
@@ -148,10 +148,10 @@ function getFallbackAnalysis(jobDescription: string, candidateData: any) {
   }
   
   const recommendation = overallMatch >= 80 
-    ? '✅ Excellent Match! Divyanshu is a strong candidate for this role with high skill alignment and relevant experience.'
+    ? '✅ Excellent Match! Shubham is a strong candidate for this role with high skill alignment and relevant experience.'
     : overallMatch >= 60
-    ? '✨ Good Match! Divyanshu meets most requirements with proven ability to learn and adapt quickly.'
-    : '💡 Potential Match! While some skill gaps exist, Divyanshu shows strong fundamentals and quick learning capability.';
+    ? '✨ Good Match! Shubham meets most requirements with proven ability to learn and adapt quickly.'
+    : '💡 Potential Match! While some skill gaps exist, Shubham shows strong fundamentals and quick learning capability.';
   
   return {
     overallMatch,

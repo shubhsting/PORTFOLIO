@@ -21,8 +21,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Divyanshu Singh | DevForge Studio ⚡",
-  description: "DevForge Studio - Where code meets creativity. Software Engineer specializing in backend development, Node.js, TypeScript, AWS, and scalable architectures. Crafting digital experiences that inspire.",
+  title: "Shubham Singh | Software Engineer ⚡",
+  description: "Software Engineer specializing in backend development, data quality frameworks, and scalable architectures. Currently at Amazon, building robust data solutions and driving innovation.",
 };
 
 export default function RootLayout({

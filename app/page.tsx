@@ -9,7 +9,14 @@ import AnimatedBackground from './components/AnimatedBackground';
 import CommandPalette from './components/CommandPalette';
 import ContactForm from './components/ContactForm';
 import InteractiveTimeline from './components/InteractiveTimeline';
-import VisitorMap from './components/VisitorMap';
+import { 
+  experienceData, 
+  projectsData, 
+  skillsData, 
+  educationData,
+  searchCompanies,
+  personalInfo
+} from './config/portfolioData';
 
 type Section = 'about' | 'timeline' | 'experience' | 'projects' | 'skills' | 'education' | 'contact';
 
@@ -78,7 +85,7 @@ export default function Portfolio() {
   const [terminalInput, setTerminalInput] = useState('');
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
     '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-    '🚀 Welcome to Divyanshu Singh\'s Portfolio Terminal v1.0',
+    '🚀 Welcome to Shubham Singh\'s Portfolio Terminal v1.0',
     '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
     '💡 Type "help" to see all available commands',
     '✨ Try commands like: whoami, tech, resume, email',
@@ -103,7 +110,6 @@ export default function Portfolio() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [commandInput, setCommandInput] = useState('');
-  const [visitorCount, setVisitorCount] = useState(0);
 
   // Function to calculate duration between two dates
   const calculateDuration = (startDate: string, endDate: string | null): string => {
@@ -173,11 +179,7 @@ export default function Portfolio() {
     });
 
     // Search in projects
-    const projects = [
-      { name: 'Trip-Tide', tech: ['MongoDB', 'Express', 'React', 'Node.js'], section: 'projects', icon: '🚗' },
-      { name: 'SUDOKU-SOLVER', tech: ['Java', 'Algorithms', 'DSA'], section: 'projects', icon: '🎯' },
-    ];
-    projects.forEach(project => {
+    projectsData.forEach(project => {
       if (project.name.toLowerCase().includes(lowerQuery) || 
           project.tech.some(t => t.toLowerCase().includes(lowerQuery))) {
         results.push({
@@ -191,12 +193,7 @@ export default function Portfolio() {
     });
 
     // Search in experience
-    const companies = [
-      { name: 'The Algorithm', role: 'Software Engineer', section: 'experience', icon: '💼' },
-      { name: 'MathonGo', role: 'Software Developer Engineer', section: 'experience', icon: '💼' },
-      { name: 'ARENESS', role: 'Software Developer Engineer', section: 'experience', icon: '💼' },
-    ];
-    companies.forEach(company => {
+    searchCompanies.forEach(company => {
       if (company.name.toLowerCase().includes(lowerQuery) || 
           company.role.toLowerCase().includes(lowerQuery)) {
         results.push({
@@ -210,7 +207,7 @@ export default function Portfolio() {
     });
 
     // Search in skills
-    const skills = ['Java', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'MongoDB', 'AWS'];
+    const skills = ['JavaScript', 'C++', 'Java', 'Python', 'Node.js', 'React.js', 'Ruby on Rails', 'SpringBoot', 'AWS', 'Docker', 'MySQL', 'DynamoDB', 'MongoDB'];
     skills.forEach(skill => {
       if (skill.toLowerCase().includes(lowerQuery)) {
         results.push({
@@ -270,11 +267,6 @@ export default function Portfolio() {
       setCurrentTheme(savedTheme);
     }
     
-    // Visitor counter
-    const visits = parseInt(localStorage.getItem('portfolioVisits') || '0');
-    const newVisits = visits + 1;
-    localStorage.setItem('portfolioVisits', newVisits.toString());
-    setVisitorCount(newVisits);
     
     return () => clearInterval(timer);
   }, []);
@@ -334,46 +326,46 @@ export default function Portfolio() {
 
   const handleDownloadResume = () => {
     // Open in new tab so user can view it
-    window.open('/Divyanshu_Singh_Resume.pdf', '_blank');
+    window.open('/Shubham_Singh_Resume.pdf', '_blank');
   };
 
   const handleViewResume = () => {
-    window.open('/Divyanshu_Singh_Resume.pdf', '_blank');
+    window.open('/Shubham_Singh_Resume.pdf', '_blank');
   };
 
   const handleCopyEmail = async () => {
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText('divyanshusingh.hire@gmail.com');
-        alert('✓ Email copied to clipboard: divyanshusingh.hire@gmail.com');
+        await navigator.clipboard.writeText('shubhamsingh1840@gmail.com');
+        alert('✓ Email copied to clipboard: shubhamsingh1840@gmail.com');
       } else {
         // Fallback for browsers that don't support clipboard API
         const textArea = document.createElement('textarea');
-        textArea.value = 'divyanshusingh.hire@gmail.com';
+        textArea.value = 'shubhamsingh1840@gmail.com';
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('copy');
         document.body.removeChild(textArea);
-        alert('✓ Email copied to clipboard: divyanshusingh.hire@gmail.com');
+        alert('✓ Email copied to clipboard: shubhamsingh1840@gmail.com');
       }
     } catch (err) {
-      alert('Email: divyanshusingh.hire@gmail.com');
+      alert('Email: shubhamsingh1840@gmail.com');
     }
   };
 
   const handleEmailClick = () => {
-    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=divyanshusingh.hire@gmail.com&su=Hello%20Divyanshu&body=Hi%20Divyanshu,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards', '_blank');
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=shubhamsingh1840@gmail.com&su=Hello%20Shubham&body=Hi%20Shubham,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards', '_blank');
   };
 
   const handleCopyPhone = async () => {
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText('+91 7906726655');
+        await navigator.clipboard.writeText('+91 8076221840');
         alert('✓ Phone number copied to clipboard!');
       } else {
         // Fallback for browsers that don't support clipboard API
         const textArea = document.createElement('textarea');
-        textArea.value = '+91 7906726655';
+        textArea.value = '+91 8076221840';
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('copy');
@@ -381,7 +373,7 @@ export default function Portfolio() {
         alert('✓ Phone number copied to clipboard!');
       }
     } catch (err) {
-      alert('Phone: +91 7906726655');
+      alert('Phone: +91 8076221840');
     }
   };
 
@@ -508,26 +500,26 @@ export default function Portfolio() {
       newHistory.push(`✓ Navigating to ${cmd}...`);
     } else if (cmd === 'resume') {
       newHistory.push('✓ Opening resume in new tab...');
-      setTimeout(() => window.open('/Divyanshu_Singh_Resume.pdf', '_blank'), 500);
+      setTimeout(() => window.open('/Shubham_Singh_Resume.pdf', '_blank'), 500);
     } else if (cmd === 'email') {
       newHistory.push('✓ Opening Gmail compose...');
-      setTimeout(() => window.open('https://mail.google.com/mail/?view=cm&fs=1&to=divyanshusingh.hire@gmail.com&su=Hello%20Divyanshu&body=Hi%20Divyanshu,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards', '_blank'), 500);
+      setTimeout(() => window.open('https://mail.google.com/mail/?view=cm&fs=1&to=shubhamsingh1840@gmail.com&su=Hello%20Shubham&body=Hi%20Shubham,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards', '_blank'), 500);
     } else if (cmd === 'phone') {
-      newHistory.push('📞 Phone: +91 7906726655');
-      navigator.clipboard?.writeText('+91 7906726655').catch(() => {});
+      newHistory.push('📞 Phone: +91 8076221840');
+      navigator.clipboard?.writeText('+91 8076221840').catch(() => {});
       newHistory.push('✓ Phone number copied to clipboard!');
     } else if (cmd === 'linkedin') {
       newHistory.push('✓ Opening LinkedIn profile...');
-      setTimeout(() => window.open('https://www.linkedin.com/in/divyanshu-singh-624700221', '_blank'), 500);
+      setTimeout(() => window.open('https://linkedin.com/in/shubh-singh', '_blank'), 500);
     } else if (cmd === 'github') {
       newHistory.push('✓ Opening GitHub profile...');
-      setTimeout(() => window.open('https://github.com/divyanshu2003singh', '_blank'), 500);
+      setTimeout(() => window.open('https://github.com/shubhsting', '_blank'), 500);
     } else if (cmd === 'whoami') {
       newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      newHistory.push('👨‍💻 Divyanshu Singh');
-      newHistory.push('💼 Software Engineer @ The Algorithm');
-      newHistory.push('📍 New Delhi, India');
-      newHistory.push('🎓 B.Tech Computer Science (CGPA: 8.1)');
+      newHistory.push(`👨‍💻 ${personalInfo.name}`);
+      newHistory.push(`💼 ${personalInfo.title} @ ${personalInfo.company}`);
+      newHistory.push(`📍 ${personalInfo.location}`);
+      newHistory.push(`🎓 B.E. Computer Science (CGPA: ${educationData.cgpa})`);
       newHistory.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     } else if (cmd === 'date') {
       newHistory.push(`📅 ${new Date().toLocaleString()}`);
@@ -605,8 +597,8 @@ export default function Portfolio() {
                 />
                 <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden shadow-2xl border-4 border-cyan-500/50">
                   <img 
-                    src="/profile.jpg" 
-                    alt="Divyanshu Singh" 
+                    src="/shubham_profile_image.jpeg" 
+                    alt="Shubham Singh" 
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -616,11 +608,11 @@ export default function Portfolio() {
                   <span className="text-cyan-400">const</span>{' '}
                   <span className="text-yellow-400">developer</span>{' '}
                   <span className="text-white">=</span>{' '}
-                  <span className="text-green-400">"Divyanshu Singh"</span>
+                  <span className="text-green-400">"Shubham Singh"</span>
                   <span className="text-gray-500">;</span>
                 </h1>
                 <p className="text-lg sm:text-xl lg:text-2xl text-gray-400 font-[family-name:var(--font-space)]">
-                  <span className="text-purple-400">// </span>Software Engineer
+                  <span className="text-purple-400">// </span>{personalInfo.title} at {personalInfo.company}
                 </p>
               </div>
             </div>
@@ -635,12 +627,12 @@ export default function Portfolio() {
               <pre className="text-xs sm:text-sm text-gray-300 leading-relaxed">
                 <span className="text-purple-400">export default</span> <span className="text-yellow-400">function</span> <span className="text-blue-400">AboutMe</span>() {'{'}{'\n'}
                 {'  '}<span className="text-cyan-400">return</span> {'{'}{'\n'}
-                {'    '}<span className="text-green-400">role</span>: <span className="text-orange-400">"Software Engineer"</span>,{'\n'}
+                {'    '}<span className="text-green-400">role</span>: <span className="text-orange-400">"Software Engineer II"</span>,{'\n'}
                 {'    '}<span className="text-green-400">location</span>: <span className="text-orange-400">"New Delhi, India"</span>,{'\n'}
-                {'    '}<span className="text-green-400">email</span>: <span className="text-orange-400">"divyanshusingh.hire@gmail.com"</span>,{'\n'}
-                {'    '}<span className="text-green-400">phone</span>: <span className="text-orange-400">"+91 7906726655"</span>,{'\n'}
+                {'    '}<span className="text-green-400">email</span>: <span className="text-orange-400">"shubhamsingh1840@gmail.com"</span>,{'\n'}
+                {'    '}<span className="text-green-400">phone</span>: <span className="text-orange-400">"+91 8076221840"</span>,{'\n'}
                 {'    '}<span className="text-green-400">passion</span>: <span className="text-orange-400">"Building scalable architectures"</span>,{'\n'}
-                {'    '}<span className="text-green-400">expertise</span>: [<span className="text-orange-400">"Backend"</span>, <span className="text-orange-400">"Frontend"</span>, <span className="text-orange-400">"Node.js"</span>, <span className="text-orange-400">"AWS"</span>],{'\n'}
+                {'    '}<span className="text-green-400">expertise</span>: [<span className="text-orange-400">"Backend"</span>, <span className="text-orange-400">"Frontend"</span>, <span className="text-orange-400">"Full Stack"</span>, <span className="text-orange-400">"AWS"</span>],{'\n'}
                 {'  '}{'}'}{'\n'}
                 {'}'}
               </pre>
@@ -649,10 +641,10 @@ export default function Portfolio() {
             <div className="bg-gray-950/50 border border-gray-700 rounded-lg p-4 sm:p-6 font-mono mb-6">
               <div className="space-y-2">
                 {[
-                  { cmd: 'call', icon: '📞', value: '+91 7906726655', href: 'tel:+917906726655', copyValue: '+91 7906726655' },
-                  { cmd: 'email', icon: '✉️', value: 'divyanshusingh.hire@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=divyanshusingh.hire@gmail.com', copyValue: 'divyanshusingh.hire@gmail.com' },
-                  { cmd: 'linkedin', icon: '💼', value: 'View Profile', href: 'https://www.linkedin.com/in/divyanshu-singh-624700221', copyValue: 'https://www.linkedin.com/in/divyanshu-singh-624700221' },
-                  { cmd: 'github', icon: '💻', value: 'View Repositories', href: 'https://github.com/divyanshu2003singh', copyValue: 'https://github.com/divyanshu2003singh' },
+                  { cmd: 'call', icon: '📞', value: '+91 8076221840', href: 'tel:+918076221840', copyValue: '+91 8076221840' },
+                  { cmd: 'email', icon: '✉️', value: 'shubhamsingh1840@gmail.com', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=shubhamsingh1840@gmail.com', copyValue: 'shubhamsingh1840@gmail.com' },
+                  { cmd: 'linkedin', icon: '💼', value: 'View Profile', href: 'https://linkedin.com/in/shubh-singh', copyValue: 'https://linkedin.com/in/shubh-singh' },
+                  { cmd: 'github', icon: '💻', value: 'View Repositories', href: 'https://github.com/shubhsting', copyValue: 'https://github.com/shubhsting' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-1.5">
                     <motion.a
@@ -742,76 +734,7 @@ export default function Portfolio() {
               <span>💼</span>
               Detailed Experience
             </h2>
-            {[
-              {
-                title: 'Software Engineer',
-                company: 'The Algorithm',
-                companyUrl: 'https://www.linkedin.com/company/the-algorithm/',
-                logo: '/the_algorithm_logo.jpeg',
-                startDate: '2025-01-01',
-                endDate: null, // Present
-                period: 'Jan 2025 - Present',
-                location: 'New Delhi, India',
-                workflow: 'build-and-deploy.yml',
-                status: 'success',
-                achievements: [
-                  'Pioneered scalable backend architectures for enterprise FinTech and InsurTech clients',
-                  'Decreased error rate by 15% with resilient data models',
-                  'Reduced release time by 50% with CI/CD automation',
-                ],
-              },
-              {
-                title: 'Software Developer Engineer (Intern)',
-                company: 'MathonGo',
-                companyUrl: 'https://www.linkedin.com/company/mathongo/',
-                logo: '/mathongo_logo.jpeg',
-                startDate: '2024-06-01',
-                endDate: '2024-12-31',
-                period: 'June 2024 - Dec 2024',
-                location: 'Bangalore, India',
-                workflow: 'optimize-and-scale.yml',
-                status: 'success',
-                achievements: [
-                  'Reduced query times by 40% for millions of users',
-                  'Boosted retrieval speed by 30%, achieved 98% test coverage',
-                  'Improved system resilience by 50% with AWS monitoring',
-                ],
-              },
-              {
-                title: 'Software Developer Engineer (Intern)',
-                company: 'ARENESS',
-                companyUrl: 'https://www.linkedin.com/company/areness/mycompany/',
-                logo: '/areness_logo.jpeg',
-                startDate: '2023-11-01',
-                endDate: '2024-02-01',
-                period: 'Nov 2023 - Feb 2024',
-                location: 'Gurugram, Haryana',
-                workflow: 'automate-and-improve.yml',
-                status: 'success',
-                achievements: [
-                  'Increased email engagement by 40% with automation',
-                  'Reduced manual effort by 80%, saving 15 hours/week',
-                  'Achieved 50% lower costs, 30% performance boost',
-                ],
-              },
-              {
-                title: 'Frontend Developer',
-                company: 'Freelance Projects',
-                companyUrl: 'https://github.com/divyanshu2003singh',
-                logo: '/profile.jpg',
-                startDate: '2023-01-01',
-                endDate: '2023-10-01',
-                period: 'Jan 2023 - Oct 2023',
-                location: 'Remote',
-                workflow: 'ui-ux-development.yml',
-                status: 'success',
-                achievements: [
-                  'Built responsive web applications using React and Next.js',
-                  'Implemented modern UI/UX with Tailwind CSS and Framer Motion',
-                  'Delivered 10+ client projects with 100% satisfaction rate',
-                ],
-              },
-            ].map((job, index) => (
+            {experienceData.map((job, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -1048,44 +971,7 @@ export default function Portfolio() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-4"
           >
-            {[
-              {
-                name: 'Trip-Tide',
-                repo: 'divyanshu2003singh/Trip-Tide',
-                url: 'https://github.com/divyanshu2003singh/Trip-Tide',
-                liveUrl: 'https://trip-tide-demo.vercel.app',
-                description: 'Full-stack ride-sharing application',
-                tech: ['MongoDB', 'Express', 'React', 'Node.js'],
-                icon: '🚗',
-                stars: '⭐ 12',
-                language: 'JavaScript',
-                langColor: 'bg-yellow-400',
-                previewGradient: 'from-green-500 via-emerald-500 to-teal-500',
-                features: [
-                  'Geospatial queries in MongoDB',
-                  'JWT authentication',
-                  'MERN stack architecture',
-                ],
-              },
-              {
-                name: 'SUDOKU-SOLVER',
-                repo: 'divyanshu2003singh/SUDOKU-SOLVER',
-                url: 'https://github.com/divyanshu2003singh/SUDOKU-SOLVER',
-                liveUrl: 'https://sudoku-solver-demo.vercel.app',
-                description: 'Java-based puzzle solver and generator',
-                tech: ['Java', 'Algorithms', 'DSA'],
-                icon: '🎯',
-                stars: '⭐ 8',
-                language: 'Java',
-                langColor: 'bg-orange-500',
-                previewGradient: 'from-orange-500 via-red-500 to-pink-500',
-                features: [
-                  'Backtracking algorithms',
-                  'Puzzle generator',
-                  'Validation system',
-                ],
-              },
-            ].map((project, index) => (
+            {projectsData.map((project, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
@@ -1105,7 +991,7 @@ export default function Portfolio() {
                         href={project.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        onMouseEnter={() => { setIsHovering(true); setCursorIcon(project.icon); }}
+                        onMouseEnter={() => { setIsHovering(true); setCursorIcon(project.icon || ''); }}
                         onMouseLeave={() => { setIsHovering(false); setCursorIcon(''); }}
                         className="group flex items-center gap-2"
                       >
@@ -1145,7 +1031,7 @@ export default function Portfolio() {
 
                 {/* Features */}
                 <div className="space-y-1.5">
-                  {project.features.map((feature, i) => (
+                  {project.features?.map((feature, i) => (
                     <div key={i} className="flex gap-2 text-xs sm:text-sm text-gray-400">
                       <span className="text-green-400">→</span>
                       <span>{feature}</span>
@@ -1172,7 +1058,7 @@ export default function Portfolio() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => {
-                      if (!project.liveUrl.includes('demo')) {
+                      if (!project.liveUrl) {
                         e.preventDefault();
                         alert('Live demo coming soon!');
                       }
@@ -1277,7 +1163,7 @@ export default function Portfolio() {
                           </h3>
                           <p className="text-gray-400 text-sm flex items-center justify-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                            Live Preview Available
+                            Live Preview {project.liveUrl ? "Available" : "Coming soon"}
                           </p>
                         </div>
                         
@@ -1287,7 +1173,7 @@ export default function Portfolio() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => {
-                            if (!project.liveUrl.includes('demo')) {
+                            if (!project.liveUrl) {
                               e.preventDefault();
                               alert('Live demo coming soon!');
                             }
@@ -1316,33 +1202,7 @@ export default function Portfolio() {
                           </motion.svg>
                         </motion.a>
                         
-                        {/* Tech Stack Pills */}
-                        <div className="flex flex-wrap gap-2 justify-center pt-2">
-                          {project.tech.slice(0, 3).map((tech, i) => (
-                            <motion.span
-                              key={i}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: i * 0.1 }}
-                              className="px-3 py-1 bg-gray-800/50 backdrop-blur-sm border border-gray-600/50 rounded-full text-xs text-gray-300 flex items-center gap-1.5"
-                            >
-                              <span>{getTechIcon(tech)}</span>
-                              <span>{tech}</span>
-                            </motion.span>
-                          ))}
-                        </div>
                       </div>
-                    </div>
-                    
-                    {/* Premium Corner Badge */}
-                    <div className="absolute top-4 right-4 px-3 py-1.5 bg-gradient-to-r from-gray-900/90 to-gray-800/90 backdrop-blur-md border border-gray-600/50 rounded-lg text-xs font-semibold flex items-center gap-2 shadow-lg">
-                      <div className={`w-2 h-2 rounded-full ${project.langColor}`}></div>
-                      <span className="text-gray-300">{project.language}</span>
-                    </div>
-                    
-                    {/* Stars Badge */}
-                    <div className="absolute bottom-4 left-4 px-3 py-1.5 bg-gray-900/80 backdrop-blur-md border border-yellow-500/30 rounded-lg text-xs font-semibold flex items-center gap-2">
-                      <span>{project.stars}</span>
                     </div>
                   </div>
                 </div>
@@ -1368,43 +1228,13 @@ export default function Portfolio() {
               </div>
 
               <div className="space-y-4">
-                {[
-                  {
-                    category: 'Languages',
-                    icon: '💻',
-                    packages: [
-                      { name: 'java', version: '^17.0.0', status: 'installed' },
-                      { name: 'javascript', version: 'ES6+', status: 'installed' },
-                      { name: 'typescript', version: '^5.0.0', status: 'installed' },
-                    ],
-                  },
-                  {
-                    category: 'Frameworks',
-                    icon: '⚡',
-                    packages: [
-                      { name: 'react', version: '^18.0.0', status: 'installed' },
-                      { name: 'node', version: '^20.0.0', status: 'installed' },
-                      { name: 'express', version: '^4.18.0', status: 'installed' },
-                    ],
-                  },
-                  {
-                    category: 'Cloud & DevOps',
-                    icon: '☁️',
-                    packages: [
-                      { name: 'aws-ec2', version: 'latest', status: 'installed' },
-                      { name: 'aws-s3', version: 'latest', status: 'installed' },
-                      { name: 'aws-ses', version: 'latest', status: 'installed' },
-                      { name: 'aws-sns', version: 'latest', status: 'installed' },
-                      { name: 'aws-sqs', version: 'latest', status: 'installed' },
-                    ],
-                  },
-                ].map((cat, idx) => (
-                  <div key={idx} className="space-y-2">
+                {skillsData.map((category, catIndex) => (
+                  <div key={catIndex} className="space-y-2">
                     <div className="flex items-center gap-2 text-sm text-purple-400 font-semibold mb-2">
-                      <span className="text-lg">{cat.icon}</span>
-                      <span>// {cat.category}</span>
+                      <span className="text-lg">{category.icon}</span>
+                      <span>// {category.category}</span>
                     </div>
-                    {cat.packages.map((pkg, i) => (
+                    {category.packages?.map((pkg, i) => (
                       <motion.div
                         key={i}
                         initial={{ opacity: 0, x: -20 }}
@@ -1465,23 +1295,23 @@ export default function Portfolio() {
                     <span className="text-yellow-400 text-lg">●</span>
                     <div className="flex-1">
                       <div className="text-cyan-400 font-semibold text-sm sm:text-base">commit 8a1c2e4f (HEAD {'->'} main)</div>
-                      <div className="text-xs text-gray-500 mt-1">Author: Divyanshu Singh</div>
+                      <div className="text-xs text-gray-500 mt-1">Author: Shubham Singh</div>
                       <div className="text-xs text-gray-500">Date: Aug 2024</div>
                     </div>
                   </div>
                   
                   <div className="mt-3 text-sm text-gray-300">
-                    <div className="text-white font-semibold mb-2">🎓 Graduated: B.Tech Computer Science</div>
+                    <div className="text-white font-semibold mb-2">🎓 Graduated: {educationData.degree}</div>
                     <div className="text-gray-400 space-y-1 text-xs sm:text-sm">
-                      <div>• University: <span className="text-cyan-400">MAHARSHI DAYANAND UNIVERSITY (MDU)</span></div>
-                      <div>• CGPA: <span className="text-green-400 font-semibold">8.1/10</span></div>
-                      <div>• Duration: <span className="text-purple-400">Aug 2020 - Aug 2024</span></div>
-                      <div>• Location: <span className="text-orange-400">New Delhi, India</span></div>
+                      <div>• University: <span className="text-cyan-400">{educationData.university}</span></div>
+                      <div>• CGPA: <span className="text-green-400 font-semibold">{educationData.cgpa}/10</span></div>
+                      <div>• Duration: <span className="text-purple-400">{educationData.period}</span></div>
+                      <div>• Location: <span className="text-orange-400">{educationData.location}</span></div>
                     </div>
                   </div>
                   
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {['Computer Science', 'CGPA 8.1', '4 Years', 'B.Tech'].map((tag, i) => (
+                    {educationData.tags?.map((tag, i) => (
                       <span key={i} className="px-2 py-1 bg-cyan-500/10 text-cyan-400 rounded text-xs border border-cyan-500/30">
                         {tag}
                       </span>
@@ -1489,26 +1319,6 @@ export default function Portfolio() {
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Achievement Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { label: 'CGPA', value: '8.1', icon: '📊', color: 'green' },
-                { label: 'Years', value: '4', icon: '📅', color: 'blue' },
-                { label: 'Degree', value: 'B.Tech', icon: '🎓', color: 'purple' },
-                { label: 'Status', value: 'Graduate', icon: '✓', color: 'cyan' },
-              ].map((stat, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ y: -3 }}
-                  className="bg-gray-900/50 border border-gray-700 rounded-lg p-3 text-center hover:border-cyan-500 transition-all"
-                >
-                  <div className="text-2xl mb-1">{stat.icon}</div>
-                  <div className="text-xs text-gray-500 mb-1">{stat.label}</div>
-                  <div className="text-lg text-cyan-400 font-bold">{stat.value}</div>
-                </motion.div>
-              ))}
             </div>
           </motion.div>
         );
@@ -1540,10 +1350,10 @@ export default function Portfolio() {
                 <div className="text-xs text-gray-500 uppercase tracking-wider mb-3">⚡ Quick Actions</div>
                 <div className="space-y-2">
                   {[
-                    { cmd: 'npm run email', icon: '✉️', label: 'divyanshusingh.hire@gmail.com', displayLabel: 'Send Email', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=divyanshusingh.hire@gmail.com&su=Hello%20Divyanshu&body=Hi%20Divyanshu,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards', copyValue: 'divyanshusingh.hire@gmail.com' },
-                    { cmd: 'npm run call', icon: '📞', label: '+91 7906726655', displayLabel: '+91 7906726655', href: 'tel:+917906726655', copyValue: '+91 7906726655' },
-                    { cmd: 'npm run linkedin', icon: '💼', label: 'LinkedIn Profile', displayLabel: 'Connect on LinkedIn', href: 'https://www.linkedin.com/in/divyanshu-singh-624700221', copyValue: 'https://www.linkedin.com/in/divyanshu-singh-624700221' },
-                    { cmd: 'npm run github', icon: '💻', label: 'GitHub Profile', displayLabel: 'View GitHub Profile', href: 'https://github.com/divyanshu2003singh', copyValue: 'https://github.com/divyanshu2003singh' },
+                    { cmd: 'npm run email', icon: '✉️', label: 'shubhamsingh1840@gmail.com', displayLabel: 'Send Email', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=shubhamsingh1840@gmail.com&su=Hello%20Shubham&body=Hi%20Shubham,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.%0D%0A%0D%0ABest%20regards', copyValue: 'shubhamsingh1840@gmail.com' },
+                    { cmd: 'npm run call', icon: '📞', label: '+91 8076221840', displayLabel: '+91 8076221840', href: 'tel:+918076221840', copyValue: '+91 8076221840' },
+                    { cmd: 'npm run linkedin', icon: '💼', label: 'LinkedIn Profile', displayLabel: 'Connect on LinkedIn', href: 'https://linkedin.com/in/shubh-singh', copyValue: 'https://linkedin.com/in/shubh-singh' },
+                    { cmd: 'npm run github', icon: '💻', label: 'GitHub Profile', displayLabel: 'View GitHub Profile', href: 'https://github.com/shubhsting', copyValue: 'https://github.com/shubhsting' },
                   ].map((item, i) => (
                     <div key={i} className="flex items-stretch gap-1.5">
                       <motion.a
@@ -1657,11 +1467,8 @@ export default function Portfolio() {
             <div className="w-3 h-3 rounded-full bg-green-500"></div>
           </div>
           <span className="text-sm text-gray-400 font-[family-name:var(--font-space)] hidden sm:block flex items-center gap-2">
-            <span className="text-cyan-400">divyanshu-portfolio</span>
-            <span className="text-gray-600">—</span>
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold">
-              DevForge Studio ⚡
-            </span>
+            <span className="text-cyan-400">shubham's-portfolio</span>
+
           </span>
           {/* Mobile Menu Toggle */}
           <button 
@@ -1769,7 +1576,7 @@ export default function Portfolio() {
               <button onClick={handleViewResume} className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors">
                 👁️ View Resume
               </button>
-              <a href="/Divyanshu_Singh_Resume.pdf" download className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors block">
+              <a href="/Shubham_Singh_Resume.pdf" download className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors block">
                 📥 Download Resume
               </a>
               <button onClick={() => { setActiveSection('contact'); setShowMenu(null); }} className="w-full text-left px-4 py-2 text-gray-300 hover:bg-[#2d2d30] hover:text-white transition-colors">
@@ -2143,8 +1950,8 @@ export default function Portfolio() {
             </div>
             <div className="text-gray-600 font-mono">Lines: {mounted ? lineCount : 0}</div>
             <div className="flex items-center gap-2 text-cyan-400">
-              <span>👁️</span>
-              <span className="font-mono">{visitorCount} {visitorCount === 1 ? 'visit' : 'visits'}</span>
+              <span>⚡</span>
+              <span className="font-mono">Portfolio v2.0</span>
             </div>
             <div className="text-gray-600 text-[10px]">
               Theme: {themes[currentTheme].name}
@@ -2453,8 +2260,6 @@ export default function Portfolio() {
       {/* AI Job Fit Analyzer */}
       <JobFitAnalyzer />
       
-      {/* Visitor Map */}
-      <VisitorMap />
     </div>
   );
 }

@@ -44,10 +44,10 @@ export default function CommandPalette({
     { id: 'nav-contact', name: 'Go to Contact', description: 'View contact info', icon: '📧', action: () => setActiveSection('contact'), category: 'Navigation' },
     
     // Actions
-    { id: 'action-resume', name: 'View Resume', description: 'Open resume in new tab', icon: '👁️', action: () => window.open('/Divyanshu_Singh_Resume.pdf', '_blank'), category: 'Actions' },
-    { id: 'action-email', name: 'Send Email', description: 'Compose email to Divyanshu', icon: '✉️', action: () => window.open('https://mail.google.com/mail/?view=cm&fs=1&to=divyanshusingh.hire@gmail.com', '_blank'), category: 'Actions' },
-    { id: 'action-linkedin', name: 'Open LinkedIn', description: 'Visit LinkedIn profile', icon: '💼', action: () => window.open('https://www.linkedin.com/in/divyanshu-singh-624700221', '_blank'), category: 'Actions' },
-    { id: 'action-github', name: 'Open GitHub', description: 'Visit GitHub profile', icon: '💻', action: () => window.open('https://github.com/divyanshu2003singh', '_blank'), category: 'Actions' },
+    { id: 'action-resume', name: 'View Resume', description: 'Open resume in new tab', icon: '👁️', action: () => window.open('/Shubham_Singh_Resume.pdf', '_blank'), category: 'Actions' },
+    { id: 'action-email', name: 'Send Email', description: 'Compose email to Shubham', icon: '✉️', action: () => window.open('https://mail.google.com/mail/?view=cm&fs=1&to=shubhamsingh1840@gmail.com', '_blank'), category: 'Actions' },
+    { id: 'action-linkedin', name: 'Open LinkedIn', description: 'Visit LinkedIn profile', icon: '💼', action: () => window.open('https://linkedin.com/in/shubh-singh', '_blank'), category: 'Actions' },
+    { id: 'action-github', name: 'Open GitHub', description: 'Visit GitHub profile', icon: '💻', action: () => window.open('https://github.com/shubhsting', '_blank'), category: 'Actions' },
     
     // UI Controls
     { id: 'ui-terminal', name: 'Toggle Terminal', description: 'Show/hide terminal', icon: '💻', action: () => setTerminalCollapsed(prev => !prev), category: 'UI' },

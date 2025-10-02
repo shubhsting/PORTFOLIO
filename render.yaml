@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: divyanshu-portfolio
+    name: shubham-portfolio
     runtime: node
     buildCommand: npm install && npm run build
     startCommand: npm start
