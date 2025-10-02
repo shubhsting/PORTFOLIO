@@ -73,7 +73,7 @@ export const experienceData: ExperienceItem[] = [
     period: 'May 2025 - Present',
     duration: 'May 2025 - Present (6+ months)',
     location: 'Bengaluru, India',
-    workflow: 'build-and-deploy.yml',
+    workflow: 'full-stack-development.yml',
     status: 'success',
     achievements: [
       'Building super cool stuff at Atlassian Marketplace',
@@ -93,14 +93,12 @@ export const experienceData: ExperienceItem[] = [
     period: 'Apr 2023 - May 2025',
     duration: 'Apr 2023 - May 2025 (2 years and 1 month)',
     location: 'Bengaluru, India',
-    workflow: 'build-and-deploy.yml',
+    workflow: 'optimize-and-scale.yml',
     status: 'success',
     achievements: [
-      'Collaborated with 4 engineers to drive end-to-end design and implementation of overhaul of 4 DQ services',
-      'Led to complete cost reduction of more than 50%, 18% decrease in storage bills & increased capability to handle 35k TPS across 7 lac tables',
-      'Spearheaded efforts to add support for identifying 15+ data quality issues obstructing table migration from EDX to Cairns across 50k tables',
-      'Enhanced Redshift team\'s capabilities by introducing partition level granularity for DQ scans, reducing sync failures by 31%',
-      'Achieved significant cost savings of around $10k/month'
+      'Collaborated with 4 engineers to drive the end-to-end design and implementation of overhaul of 4 DQ services, which led to compute cost reduction of more than 50%, 18% decrease in storage bills & increased capability to handle 35k TPS across 7 lac tables.',
+      'Spearheaded efforts to add support for identifying 15+ data quality issues obstructing table migration from EDX to Cairns across 50k tables, resulting in a cost-saving of $80k for the Cairns migration team.',
+      'Enhanced Redshift team’s capabilities by introducing partition level granularity for DQ scans, adding support for DQ rules which reduced sync failures by 31%; achieved significant cost savings of around $10k/month.'
     ],
   },
   {
@@ -117,14 +115,13 @@ export const experienceData: ExperienceItem[] = [
     period: 'Oct 2021 - Apr 2023',
     duration: 'Oct 2021 - Apr 2023 (1 year 6 month)',
     location: 'Bengaluru, India',
-    workflow: 'optimize-and-scale.yml',
+    workflow: 'full-stack-development.yml',
     status: 'success',
     achievements: [
-      'Teamed up with Business Data Technology team to develop and launch MVP for React, Java, TypeScript, and Python-based product',
-      'Resulted in 18% enhancement in overall data reliability and accuracy across Andes and internal Data Lake',
-      'Designed and implemented internal Ray based Data Quality Framework for S3 that impacted more than 13k+ S3 buckets',
-      'Architected LLD, HLD, implementation and delivery of robust reconciliation platform with senior engineers and SDEs',
-      'Created comprehensive wikis for new hire onboarding programs and DQ customers, earning recognition from senior engineers and achieving promotion to SDE-2 in just 1.4 years'
+      'Teamed up with the Business Data Technology team to develop and launch MVP for a React, Java, TypeScript, and Python-based product to identify and mitigate data quality issues, resulting in an 18% enhancement in overall data reliability and accuracy across Andes (Amazon’s internal Data Lake).',
+      'Designed and implemented internal Ray based Data Quality Framework for S3 that impacted more than 13k+ S3 buckets by detecting DQ issues, resulting in cost-saving of $5k per month.',
+      'Architected the LLD, HLD, implementation and delivery of a robust reconciliation platform, collaborating closely with senior engineers and SDEs which ensured consistent outputs across 5+ compute platforms (Athena, Redshift, Glue, EMR etc), leading to a remarkable reduction in bug detection time from 3 months to a few hours.',
+      'Created comprehensive wikis for new hire onboarding programs and DQ customers, earning recognition from senior engineers and achieving promotion to SDE-2 in just 1.4 years, surpassing the average promotion timeline by 6 months.'
     ],
   },
   {
@@ -141,13 +138,12 @@ export const experienceData: ExperienceItem[] = [
     period: 'Jul 2021 - Oct 2021',
     duration: 'Jul 2021 - Oct 2021 (3 months)',
     location: 'Bengaluru, India',
-    workflow: 'automate-and-improve.yml',
+    workflow: 'backend-development.yml',
     status: 'success',
     achievements: [
-      'Collaborated with cross-functional teams to enhance traditional interviewbit portal using Ruby on Rails and React',
-      'Led to resulting in 30% decrease in page load time and 15% decrease in customer support tickets',
-      'Developed backend for IB\'s standalone online compilers, enabling CRUD operations on code snippets, features like forking and sharing',
-      'Orchestrated migration of videos from S3 to YouTube, slashing monthly expenses from $900 to $100 for IB\'s event pages, achieving 90% reduction in hosting costs'
+      'Collaborated with cross-functional teams to enhance the traditional interviewbit portal using Ruby on Rails and React, leading to resulting in a 30% decrease in page load time and a 15% decrease in customer support tickets.',
+      'Developed the backend for IB’s standalone online compilers, enabling CRUD operations on code snippets, features like forking and sharing; improved user experience by driving a 10% increase user traffic.',
+      'Orchestrated the migration of videos from S3 to YouTube, slashing monthly expenses from $900 to $100 for IB’s event pages, achieving a 90% reduction in hosting costs and maximizing profitability.'
     ],
   },
   {
@@ -164,13 +160,12 @@ export const experienceData: ExperienceItem[] = [
     period: 'Jan 2021 - Jun 2021',
     duration: 'Jan 2021 - Jun 2021 (6 months)',
     location: 'New Delhi, India',
-    workflow: 'ui-ux-development.yml',
+    workflow: 'full-stack-development.yml',
     status: 'success',
     achievements: [
-      'Orchestrated successful development and launch of 3 product initiatives utilizing React.js, Node.js, Postgres, Git, Redis, Sequelize, Electron, and Express',
-      'Resulted in increase in active customers from 500 to 7000',
-      'Built key features such as share receipts automatically, quotations, show tally Groups from scratch to directly impact more than 5000+ B2B clients',
-      'Engineered implementation of S3-based data flow in Desktop Application for voluminous data sets of major clients, resulting in 40% increase in tally data processing efficiency'
+      'Orchestrated the successful development and launch of 3 product initiatives utilizing React.js, Node.js, Postgres, Git, Redis, Sequelize, Electron, and Express; resulting in increase in active customers from 500 to 7000.',
+      'Built key features such as share receipts automatically, quotations, show tally Groups from scratch to directly impact more than 5000+ B2B clients.',
+      'Engineered the implementation of S3-based data flow in Desktop Application for voluminous data sets of major clients, resulting in resulting in a 40% increase in tally data processing efficiency and driving significant business growth.'
     ],
   },
 ];
